@@ -11,10 +11,9 @@ class BankAccount
   end
 
   def statement
-    puts "#{statement_headers}"
-    @log.each_pair do |index,record|
-      puts "   #{record[:date].day}/#{record[:date].month}/#{record[:date].year}  ||#{formatting(record[:deposit].to_s)}||#{formatting(record[:withdrawal].to_s)}||#{formatting(record[:balance].to_s)}||"
-    end
+    log_reverse_chronological_order
+    statement_headers
+    output_each_transaction
   end
 
   def deposit(deposit_class)
@@ -42,7 +41,7 @@ class BankAccount
   private
 
   def statement_headers
-    "     date     ||    credit    ||     debit    ||    balance   ||"
+    puts "     date     ||    credit    ||     debit    ||    balance   ||"
   end
 
   def formatting(string)
@@ -60,7 +59,14 @@ class BankAccount
     end
   end
 
-  def enough_funds?
+  def log_reverse_chronological_order
+    @log.sort.reverse!
+  end
+
+  def output_each_transaction
+    @log.each_pair do |index,record|
+      puts "   #{record[:date].day}/#{record[:date].month}/#{record[:date].year}  ||#{formatting(record[:deposit].to_s)}||#{formatting(record[:withdrawal].to_s)}||#{formatting(record[:balance].to_s)}||"
+    end
   end
 
 end
