@@ -15,7 +15,7 @@ class BankAccount
 
   def deposit(deposit_class)
     @balance += deposit_class.amount[1..-1].to_f
-    @log["#{Time.now.day}/#{Time.now.month}/#{Time.now.year}"] = {deposit: deposit_class.amount[1..-1].to_f, balance: @balance}
+    @log[Time.now] = {deposit: deposit_class.amount[1..-1].to_f, balance: @balance}
     "Success: You have deposited #{deposit_class.amount}"
   end
 

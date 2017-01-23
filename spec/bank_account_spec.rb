@@ -30,14 +30,14 @@ describe BankAccount do
     deposit_object = double("deposit")
     allow(deposit_object).to receive(:amount).and_return("£100")
     bank_account.deposit(deposit_object)
-    expect(bank_account.log["#{Time.now.day}/#{Time.now.month}/#{Time.now.year}"][:deposit]).to eq 100.0
+    expect(bank_account.log.first[1][:deposit]).to eq 100.0
   end
 
   it "should add the new balance to the log" do
     deposit_object = double("deposit")
     allow(deposit_object).to receive(:amount).and_return("£100")
     bank_account.deposit(deposit_object)
-    expect(bank_account.log["#{Time.now.day}/#{Time.now.month}/#{Time.now.year}"][:balance]).to eq 100.0
+    expect(bank_account.log.first[1][:balance]).to eq 100.0
   end
 
 end
